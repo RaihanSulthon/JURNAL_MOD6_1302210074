@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
@@ -22,17 +23,19 @@ namespace JURNAL_MOD6_1302210074
             {
                 throw new NullReferenceException("Judul tidak boleh kosong");
             }
-            if(title.Length > 99)
+            if(title.Length >= 200)
             {
-                throw new Exception("Maximal panjang dari teks adalah 100");
+                throw new Exception("Maximal panjang dari teks adalah 200");
                 this.title = title;
             }
             this.playCount = 0;
+            this.title = title;
         }
 
         public void IncreasePlayCount(int x)
         {
-            this.playCount = x;
+          Debug.Assert(x >= 0);
+          this.playCount = this.playCount + x;
         }
 
         public int GetPlayCount()
@@ -47,9 +50,9 @@ namespace JURNAL_MOD6_1302210074
 
         public void PrintVideoDetails()
         {
-            Console.WriteLine("ID :" + id);
-            Console.WriteLine("Title :" + title);
-            Console.WriteLine("PlayCount : " + (playCount+1));
+                Console.WriteLine("ID :" + this.id);
+                Console.WriteLine("Title :" + this.title);
+                Console.WriteLine("PlayCount : " + playCount);
         }
     }
 }

@@ -11,18 +11,24 @@ namespace JURNAL_MOD6_1302210074
         private int id;
         private List<SayaTubeVideo> uploadedVideos;
         String username;
+        int total;
 
         public SayaTubeUser(String username)
         {
             Random random = new Random();
             this.id = random.Next(1, 99999);
             this.uploadedVideos= new List<SayaTubeVideo>();
+            this.total= 0;
             this.username = username;
+            if(username.Length > 100 )
+            {
+                Console.WriteLine("Panjang nama tidak boleh lebih dari 100");
+            }
+
         }
 
         public int GetTotalVideoPlayCount()
         {
-            int total = 0;
             for (int i = 0; i < uploadedVideos.Count; i++)
             {
                 total = total + uploadedVideos[i].GetPlayCount();
@@ -37,10 +43,12 @@ namespace JURNAL_MOD6_1302210074
 
         public void PrintAllVideoPlayCount()
         {
-            Console.WriteLine(" User :" + username);
+            Console.WriteLine(" User :" + this.username);
             for (int i = 0; i < uploadedVideos.Count; i++)
             {
                 Console.WriteLine("Video " + (i+1)+ " Judul : " + uploadedVideos[i].GetTitle());
+                Console.WriteLine("\n");
+                Console.WriteLine("Total Play Count: " + GetTotalVideoPlayCount());
             }
         }
     }
